@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flat Accounts for</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f7f7f7; color: #333; padding: 20px; }
+    h1 { text-align: center; font-size: 28px; margin-bottom: 20px; }
+    .month-section { background: white; margin: 20px auto; padding: 20px; border-radius: 10px; max-width: 900px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    h2 { border-bottom: 1px solid #ddd; padding-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #eee; padding: 10px; text-align: left; vertical-align: top; }
+    input, select, button { padding: 8px; border-radius: 5px; border: 1px solid #ccc; margin: 5px; }
+    button { background-color: #333; color: white; cursor: pointer; }
+    .delete-button { background-color: #d33; }
+    .undo-button { background-color: #4caf50; }
+    .form-inline { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .ledger-table th[colspan] { text-align: center; background: #f0f0f0; }
+    #audit-trail { max-width: 900px; margin: 40px auto; padding: 20px; border: 1px solid #ccc; background: #fff; }
+    #audit-trail ul { padding-left: 20px; }
+    #audit-trail li { margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <div id="login-container" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;">
+    <h2>Login to Access Flat Accounts</h2>
+    <input type="password" id="passwordInput" placeholder="Enter Password" style="padding:10px;margin:10px;width:200px;" />
+    <button onclick="checkPassword()" style="padding:10px 20px;">Login</button>
+    <p id="login-error" style="color:red;"></p>
+  </div>
+
+  <div id="secure-body" style="display:none">
+    <h1>Flat Accounts for</h1>
+
+    <button onclick="clearAllData()">Clear All Data</button>
+    <button class="undo-button" onclick="undoLastAction()">Undo</button>
+    <button onclick="exportToPDF()">Export as PDF</button>
+
+    <div class="form-inline">
+      <select id="entryType">
+        <option value="Receipt">Receipt (Dr)</option>
+        <option value="Payment">Payment (Cr)</option>
+      </select>
+      <input type="text" id="entryName" placeholder="Name" />
+      <input type="number" id="entryAmount" placeholder="Amount ₹" />
+      <input type="date" id="entryDate" />
+      <button onclick="addManualEntry()">+ Add Entry</button>
+    </div>
+
+    <div id="months-container"></div>
+    <div id="audit-trail"></div>
+  </div>
+
+  <script>
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    let undoStack = [];
+
+    function getMonthFromDate(dateStr) {
+      const date = new Date(dateStr);
+      return months[date.getMonth()];
+    }
+
+    function createMonthSection(month) {
+      const section = document.createElement('div');
+      section.className = 'month-section';
+      section.innerHTML = `
+        <h2>${month} <button class="delete-button" onclick="clearMonthData('${month}')">🗑 Clear Month</button></h2>
+        <table class="ledger-table">
+          <thead>
+            <tr>
+              <th colspan="4">Receipts (Dr)</th>
+              <th colspan="4">Payments (Cr)</th>
+            </tr>
+            <tr>
+              <th>Date</th><th>Name</th><th>Amount (₹)</th><th>Action</th>
+              <th>Date</th><th>Name</th><th>Amount (₹)</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-${month}"></tbody>
+        </table>
+      `;
+      document.getElementById('months-container').appendChild(section);
+    }
+
+    function calculateTransferToNextMonth() {
+      for (let i = 0; i < months.length - 1; i++) {
+        const month = months[i];
+        const nextMonth = months[i + 1];
+        const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
+        const totalReceipts = entries.filter(e => e.type === 'Receipt').reduce((sum, e) => sum + Number(e.amount), 0);
+        const totalPayments = entries.filter(e => e.type === 'Payment').reduce((sum, e) => sum + Number(e.amount), 0);
+        const difference = totalReceipts - totalPayments;
+
+        const nextEntries = JSON.parse(localStorage.getItem(`entries-${nextMonth}`) || '[]');
+        const updatedEntries = nextEntries.filter(e => e.name !== 'Transfer from previous month');
+
+        if (difference !== 0) {
+          updatedEntries.unshift({
+            type: difference > 0 ? 'Receipt' : 'Payment',
+            name: 'Transfer from previous month',
+            amount: Math.abs(difference),
+            date: `2024-${(i + 2).toString().padStart(2, '0')}-01`
+          });
+        }
+
+        localStorage.setItem(`entries-${nextMonth}`, JSON.stringify(updatedEntries));
+      }
+    }
+
+    function loadAllEntries() {
+      calculateTransferToNextMonth();
+      document.getElementById('months-container').innerHTML = '';
+      months.forEach(month => {
+        createMonthSection(month);
+        const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
+        const tbody = document.getElementById(`table-${month}`);
+
+        const receipts = entries.filter(e => e.type === 'Receipt');
+        const payments = entries.filter(e => e.type === 'Payment');
+        const maxRows = Math.max(receipts.length, payments.length);
+
+        for (let i = 0; i < maxRows; i++) {
+          const r = receipts[i];
+          const p = payments[i];
+          const row = document.createElement('tr');
+
+          row.innerHTML = `
+            <td>${r ? r.date : ''}</td>
+            <td>${r ? r.name : ''}</td>
+            <td>${r ? '₹' + r.amount : ''}</td>
+            <td>${r ? `<button onclick="deleteEntry('${month}', ${entries.indexOf(r)})">Delete</button>` : ''}</td>
+
+            <td>${p ? p.date : ''}</td>
+            <td>${p ? p.name : ''}</td>
+            <td>${p ? '₹' + p.amount : ''}</td>
+            <td>${p ? `<button onclick="deleteEntry('${month}', ${entries.indexOf(p)})">Delete</button>` : ''}</td>
+          `;
+          tbody.appendChild(row);
+        }
+      });
+    }
+
+    function addManualEntry() {
+      const type = document.getElementById('entryType').value;
+      const name = document.getElementById('entryName').value.trim();
+      const amount = parseFloat(document.getElementById('entryAmount').value);
+      const date = document.getElementById('entryDate').value;
+
+      if (!name || isNaN(amount) || !date) return alert("Please enter valid name, amount, and date.");
+
+      const monthName = getMonthFromDate(date);
+      const entry = { type, name, amount, date };
+      const existing = JSON.parse(localStorage.getItem(`entries-${monthName}`) || '[]');
+      existing.push(entry);
+      localStorage.setItem(`entries-${monthName}`, JSON.stringify(existing));
+      addToAuditTrail(`Added ${type}: ₹${amount} for ${name} on ${date}`);
+      loadAllEntries();
+
+      document.getElementById('entryName').value = '';
+      document.getElementById('entryAmount').value = '';
+      document.getElementById('entryDate').value = '';
+    }
+
+    function deleteEntry(month, index) {
+      if (!confirm(`Delete this entry from ${month}?`)) return;
+      const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
+      undoStack.push({ month, entries: [...entries] });
+      entries.splice(index, 1);
+      localStorage.setItem(`entries-${month}`, JSON.stringify(entries));
+      addToAuditTrail(`Deleted entry from ${month}`);
+      loadAllEntries();
+    }
+
+    function clearMonthData(month) {
+      if (!confirm(`Delete all data from ${month}?`)) return;
+      const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
+      undoStack.push({ month, entries });
+      localStorage.removeItem(`entries-${month}`);
+      addToAuditTrail(`Cleared all data from ${month}`);
+      loadAllEntries();
+    }
+
+    function clearAllData() {
+      if (!confirm("Delete ALL data?")) return;
+      months.forEach(month => {
+        const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
+        undoStack.push({ month, entries });
+        localStorage.removeItem(`entries-${month}`);
+      });
+      addToAuditTrail("Cleared ALL monthly data");
+      loadAllEntries();
+    }
+
+    function undoLastAction() {
+      const last = undoStack.pop();
+      if (!last) return alert("Nothing to undo.");
+      localStorage.setItem(`entries-${last.month}`, JSON.stringify(last.entries));
+      addToAuditTrail(`Undid last action in ${last.month}`);
+      loadAllEntries();
+    }
+
+    function exportToPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      months.forEach((month, index) => {
+        const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
+        const data = entries.map(e => [e.date, e.type, e.name, '₹' + e.amount]);
+
+        if (index !== 0) doc.addPage();
+        doc.setFontSize(14);
+        doc.text(`${month}`, 14, 20);
+
+        doc.autoTable({
+          startY: 30,
+          head: [["Date", "Type", "Name", "Amount"]],
+          body: data
+        });
+      });
+      doc.save("FlatAccounts.pdf");
+    }
+
+    function addToAuditTrail(action) {
+      const logs = JSON.parse(localStorage.getItem("auditTrail") || "[]");
+      const timestamp = new Date().toLocaleString("en-IN", {
+        year: 'numeric', month: 'short', day: 'numeric',
+        hour: 'numeric', minute: '2-digit', hour12: true
+      });
+      logs.push({ action, date: timestamp });
+      localStorage.setItem("auditTrail", JSON.stringify(logs));
+      renderAuditTrail();
+    }
+
+    function renderAuditTrail() {
+      const logs = JSON.parse(localStorage.getItem("auditTrail") || "[]");
+      const container = document.getElementById("audit-trail");
+      if (!container) return;
+
+      container.innerHTML = "<h2>Audit Trail</h2>";
+      if (logs.length === 0) {
+        container.innerHTML += "<p>No actions recorded yet.</p>";
+        return;
+      }
+
+      const list = document.createElement("ul");
+      logs.slice().reverse().forEach(log => {
+        const item = document.createElement("li");
+        item.textContent = `${log.date} — ${log.action}`;
+        list.appendChild(item);
+      });
+      container.appendChild(list);
+    }
+
+    loadAllEntries();
+    renderAuditTrail();
+  </script>
+
+  <script>
+    async function hashPassword(input) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(input);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+    }
+
+    async function checkPassword() {
+      const input = document.getElementById("passwordInput").value;
+      const storedHash = "0f58bd1cf4fe036b082624d4b0d657fe84fa42693069a51294c532152ae69fda";
+      const inputHash = await hashPassword(input);
+      if (inputHash === storedHash) {
+        document.getElementById("login-container").style.display = "none";
+        document.getElementById("secure-body").style.display = "block";
+      } else {
+        document.getElementById("login-error").textContent = "Incorrect password. Please try again.";
+      }
+    }
+  </script>
+</body>
+</html>
