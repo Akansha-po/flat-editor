@@ -1,1 +1,780 @@
-
+{
+  "entries": [
+    {
+      "type": "Receipt",
+      "name": "Raj Kishor Prasad",
+      "amount": 1000,
+      "date": "2025-01-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Limbu Da",
+      "amount": 1000,
+      "date": "2025-01-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Sharmistha Paul",
+      "amount": 1000,
+      "date": "2025-01-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Bijay Prasad",
+      "amount": 800,
+      "date": "2025-01-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Bittu Singh",
+      "amount": 1000,
+      "date": "2025-01-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Pradosh Rai",
+      "amount": 1500,
+      "date": "2025-01-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Sanjib Roy",
+      "amount": 1000,
+      "date": "2025-01-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Manish Paul",
+      "amount": 1000,
+      "date": "2025-01-01"
+    },
+    {
+      "type": "Payment",
+      "name": "SMC Dustbin",
+      "amount": 150,
+      "date": "2025-01-01"
+    },
+    {
+      "type": "Payment",
+      "name": "Shankar",
+      "amount": 4000,
+      "date": "2025-01-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 2200,
+      "date": "2025-01-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 6350,
+      "date": "2024-02-01"
+    },
+    {
+      "type": "Payment",
+      "name": "Shankar",
+      "amount": 4000,
+      "date": "2025-02-01"
+    },
+    {
+      "type": "Payment",
+      "name": "SMC Dustbin",
+      "amount": 150,
+      "date": "2025-02-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Raj Kishor Prasad",
+      "amount": 1000,
+      "date": "2025-02-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Limbu Da",
+      "amount": 1000,
+      "date": "2025-02-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Sharmistha Paul",
+      "amount": 1000,
+      "date": "2025-02-08"
+    },
+    {
+      "type": "Receipt",
+      "name": "Sanjib Roy",
+      "amount": 1000,
+      "date": "2025-02-14"
+    },
+    {
+      "type": "Receipt",
+      "name": "Manish Paul",
+      "amount": 1000,
+      "date": "2025-02-14"
+    },
+    {
+      "type": "Receipt",
+      "name": "Bittu Singh",
+      "amount": 1000,
+      "date": "2025-02-26"
+    },
+    {
+      "type": "Receipt",
+      "name": "Bijay Prasad",
+      "amount": 800,
+      "date": "2025-02-27"
+    },
+    {
+      "type": "Receipt",
+      "name": "Pradosh Rai",
+      "amount": 1000,
+      "date": "2025-02-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 10000,
+      "date": "2024-03-01"
+    },
+    {
+      "type": "Payment",
+      "name": "Shankar",
+      "amount": 4000,
+      "date": "2025-03-01"
+    },
+    {
+      "type": "Payment",
+      "name": "SMC Dustbin",
+      "amount": 200,
+      "date": "2025-03-01"
+    },
+    {
+      "type": "Payment",
+      "name": "Electricity Bill",
+      "amount": 2930,
+      "date": "2025-03-01"
+    },
+    {
+      "type": "Payment",
+      "name": "Wall Crack Repair",
+      "amount": 3000,
+      "date": "2025-03-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Manish Paul",
+      "amount": 1000,
+      "date": "2025-03-04"
+    },
+    {
+      "type": "Receipt",
+      "name": "Sharmistha Paul",
+      "amount": 1000,
+      "date": "2025-03-05"
+    },
+    {
+      "type": "Receipt",
+      "name": "Raj Kishor Prasad",
+      "amount": 1000,
+      "date": "2025-03-04"
+    },
+    {
+      "type": "Receipt",
+      "name": "Pappu Da",
+      "amount": 2000,
+      "date": "2025-03-10"
+    },
+    {
+      "type": "Receipt",
+      "name": "Pradosh Rai",
+      "amount": 1000,
+      "date": "2025-03-10"
+    },
+    {
+      "type": "Receipt",
+      "name": "Sanjib Roy",
+      "amount": 1000,
+      "date": "2025-03-11"
+    },
+    {
+      "type": "Receipt",
+      "name": "Bittu Singh",
+      "amount": 1000,
+      "date": "2025-03-16"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 7870,
+      "date": "2024-04-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Pappu Da",
+      "amount": 1185,
+      "date": "2025-04-01"
+    },
+    {
+      "type": "Payment",
+      "name": "Bulb",
+      "amount": 185,
+      "date": "2025-04-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Raj Kishor Prasad",
+      "amount": 1000,
+      "date": "2025-04-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Sharmistha Paul",
+      "amount": 1000,
+      "date": "2025-04-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Manish Paul",
+      "amount": 500,
+      "date": "2025-04-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Pradosh Rai",
+      "amount": 1000,
+      "date": "2025-04-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Sanjib Roy",
+      "amount": 1000,
+      "date": "2025-04-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Bijay Prasad",
+      "amount": 1600,
+      "date": "2025-04-24"
+    },
+    {
+      "type": "Receipt",
+      "name": "Bittu Singh",
+      "amount": 1000,
+      "date": "2025-04-08"
+    },
+    {
+      "type": "Payment",
+      "name": "SMC Dustbin",
+      "amount": 100,
+      "date": "2025-04-18"
+    },
+    {
+      "type": "Payment",
+      "name": "Slab Making",
+      "amount": 300,
+      "date": "2025-04-03"
+    },
+    {
+      "type": "Payment",
+      "name": "Shankar",
+      "amount": 4000,
+      "date": "2025-04-01"
+    },
+    {
+      "type": "Payment",
+      "name": "Lift Payment",
+      "amount": 8500,
+      "date": "2025-04-01"
+    },
+    {
+      "type": "Payment",
+      "name": "Pipe",
+      "amount": 260,
+      "date": "2025-04-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 2810,
+      "date": "2024-05-01"
+    },
+    {
+      "type": "Payment",
+      "name": "Shankar",
+      "amount": 4000,
+      "date": "2025-05-01"
+    },
+    {
+      "type": "Payment",
+      "name": "SMC Dustbin",
+      "amount": 250,
+      "date": "2025-05-01"
+    },
+    {
+      "type": "Payment",
+      "name": "Phenyle",
+      "amount": 150,
+      "date": "2025-05-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Raj Kishor Prasad",
+      "amount": 1000,
+      "date": "2025-05-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Limbu Da",
+      "amount": 3000,
+      "date": "2025-05-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Sharmistha Paul",
+      "amount": 1000,
+      "date": "2025-05-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Pappu Da",
+      "amount": 1000,
+      "date": "2025-05-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Manish Paul",
+      "amount": 1000,
+      "date": "2025-05-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Bittu Singh",
+      "amount": 1000,
+      "date": "2025-05-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Pradosh Rai",
+      "amount": 1000,
+      "date": "2025-05-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Bijay Prasad",
+      "amount": 800,
+      "date": "2025-05-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 8210,
+      "date": "2024-06-01"
+    },
+    {
+      "type": "Payment",
+      "name": "SMC Dustbin",
+      "amount": 400,
+      "date": "2025-06-01"
+    },
+    {
+      "type": "Payment",
+      "name": "Shankar",
+      "amount": 4000,
+      "date": "2025-06-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Raj Kishor Prasad",
+      "amount": 1000,
+      "date": "2025-06-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Limbu Da",
+      "amount": 1000,
+      "date": "2025-06-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Pappu Da",
+      "amount": 1000,
+      "date": "2025-06-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Sharmistha Paul",
+      "amount": 1000,
+      "date": "2025-06-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Manish Paul",
+      "amount": 1000,
+      "date": "2025-06-11"
+    },
+    {
+      "type": "Receipt",
+      "name": "Sanjib Roy",
+      "amount": 2000,
+      "date": "2025-06-17"
+    },
+    {
+      "type": "Receipt",
+      "name": "Bijay Prasad",
+      "amount": 800,
+      "date": "2025-06-27"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 11610,
+      "date": "2024-07-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 11610,
+      "date": "2024-08-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 11610,
+      "date": "2024-09-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 11610,
+      "date": "2024-10-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 11610,
+      "date": "2024-11-01"
+    },
+    {
+      "type": "Receipt",
+      "name": "Transfer from previous month",
+      "amount": 11610,
+      "date": "2024-12-01"
+    }
+  ],
+  "auditTrail": [
+    {
+      "action": "Added Receipt: ₹8970 for Transfer from Previous Month on 2025-01-01",
+      "date": "1 Jul 2025, 11:18 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Raj Kishor Prasad on 2025-01-01",
+      "date": "1 Jul 2025, 11:19 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Limbu Da on 2025-01-01",
+      "date": "1 Jul 2025, 11:19 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Sharmistha Paul on 2025-01-01",
+      "date": "1 Jul 2025, 11:20 am"
+    },
+    {
+      "action": "Added Receipt: ₹800 for Bijay Prasad on 2025-01-01",
+      "date": "1 Jul 2025, 11:20 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Bittu Singh on 2025-01-01",
+      "date": "1 Jul 2025, 11:20 am"
+    },
+    {
+      "action": "Added Receipt: ₹1500 for Pradosh Rai on 2025-01-01",
+      "date": "1 Jul 2025, 11:21 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Sanjib Roy on 2025-01-01",
+      "date": "1 Jul 2025, 11:21 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Manish Paul on 2025-01-01",
+      "date": "1 Jul 2025, 11:21 am"
+    },
+    {
+      "action": "Added Payment: ₹150 for SMC Dustbin on 2025-01-01",
+      "date": "1 Jul 2025, 11:21 am"
+    },
+    {
+      "action": "Added Payment: ₹4000 for Shankar on 2025-01-01",
+      "date": "1 Jul 2025, 11:22 am"
+    },
+    {
+      "action": "Added Payment: ₹4000 for Shankar on 2025-02-01",
+      "date": "1 Jul 2025, 11:22 am"
+    },
+    {
+      "action": "Added Payment: ₹150 for SMC Dustbin on 2025-02-01",
+      "date": "1 Jul 2025, 11:23 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Raj Kishor Prasad on 2025-02-01",
+      "date": "1 Jul 2025, 11:23 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Pradosh rai on 2025-02-01",
+      "date": "1 Jul 2025, 11:23 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Limbu Da on 2025-02-01",
+      "date": "1 Jul 2025, 11:24 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Sharmistha Paul on 2025-02-08",
+      "date": "1 Jul 2025, 11:24 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Sanjib Roy on 2025-02-14",
+      "date": "1 Jul 2025, 11:26 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Manish Paul on 2025-02-14",
+      "date": "1 Jul 2025, 11:27 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Bittu Singh on 2025-02-26",
+      "date": "1 Jul 2025, 11:27 am"
+    },
+    {
+      "action": "Added Receipt: ₹800 for Bijay Prasad on 2025-02-27",
+      "date": "1 Jul 2025, 11:27 am"
+    },
+    {
+      "action": "Added Payment: ₹4000 for Shankar on 2025-03-01",
+      "date": "1 Jul 2025, 11:28 am"
+    },
+    {
+      "action": "Added Payment: ₹200 for SMC Dustbin on 2025-03-01",
+      "date": "1 Jul 2025, 11:28 am"
+    },
+    {
+      "action": "Added Payment: ₹2930 for Electricity Bill on 2025-03-01",
+      "date": "1 Jul 2025, 11:29 am"
+    },
+    {
+      "action": "Added Payment: ₹3000 for Wall Crack Repair on 2025-03-01",
+      "date": "1 Jul 2025, 11:29 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Manish Paul on 2025-03-04",
+      "date": "1 Jul 2025, 11:30 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Sharmistha Paul on 2025-03-05",
+      "date": "1 Jul 2025, 11:30 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Raj Kishor Prasad on 2025-03-04",
+      "date": "1 Jul 2025, 11:30 am"
+    },
+    {
+      "action": "Added Receipt: ₹2000 for Pappu Da on 2025-03-10",
+      "date": "1 Jul 2025, 11:32 am"
+    },
+    {
+      "action": "Deleted entry from February",
+      "date": "1 Jul 2025, 11:33 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Pradosh Rai on 2025-02-01",
+      "date": "1 Jul 2025, 11:33 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Pradosh Rai on 2025-03-10",
+      "date": "1 Jul 2025, 11:33 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Sanjib Roy on 2025-03-11",
+      "date": "1 Jul 2025, 11:34 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Bittu Singh on 2025-03-16",
+      "date": "1 Jul 2025, 11:34 am"
+    },
+    {
+      "action": "Added Receipt: ₹2000 for Pappu Da on 2025-04-02",
+      "date": "1 Jul 2025, 11:35 am"
+    },
+    {
+      "action": "Added Payment: ₹2000 for Electricity Bulb on 2025-04-02",
+      "date": "1 Jul 2025, 11:35 am"
+    },
+    {
+      "action": "Deleted entry from April",
+      "date": "1 Jul 2025, 11:37 am"
+    },
+    {
+      "action": "Deleted entry from April",
+      "date": "1 Jul 2025, 11:37 am"
+    },
+    {
+      "action": "Added Receipt: ₹1185 for Pappu Da on 2025-04-01",
+      "date": "1 Jul 2025, 11:37 am"
+    },
+    {
+      "action": "Added Payment: ₹185 for Bulb on 2025-04-01",
+      "date": "1 Jul 2025, 11:38 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Raj Kishor Prasad on 2025-04-01",
+      "date": "1 Jul 2025, 11:38 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Sharmistha Paul on 2025-04-01",
+      "date": "1 Jul 2025, 11:39 am"
+    },
+    {
+      "action": "Added Receipt: ₹500 for Manish Paul on 2025-04-01",
+      "date": "1 Jul 2025, 11:39 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Pradosh Rai on 2025-04-01",
+      "date": "1 Jul 2025, 11:39 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Sanjib Roy on 2025-04-01",
+      "date": "1 Jul 2025, 11:40 am"
+    },
+    {
+      "action": "Added Receipt: ₹1600 for Bijay Prasad on 2025-04-24",
+      "date": "1 Jul 2025, 11:40 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Bittu Singh on 2025-04-08",
+      "date": "1 Jul 2025, 11:40 am"
+    },
+    {
+      "action": "Added Payment: ₹2000 for Shankar on 2025-04-03",
+      "date": "1 Jul 2025, 11:41 am"
+    },
+    {
+      "action": "Added Payment: ₹100 for SMC Dustbin on 2025-04-18",
+      "date": "1 Jul 2025, 11:41 am"
+    },
+    {
+      "action": "Added Payment: ₹300 for Slab Making on 2025-04-03",
+      "date": "1 Jul 2025, 11:41 am"
+    },
+    {
+      "action": "Added Payment: ₹8142 for Lift Payment on 2025-04-09",
+      "date": "1 Jul 2025, 11:42 am"
+    },
+    {
+      "action": "Deleted entry from April",
+      "date": "1 Jul 2025, 11:42 am"
+    },
+    {
+      "action": "Added Payment: ₹4000 for Shankar on 2025-04-01",
+      "date": "1 Jul 2025, 11:42 am"
+    },
+    {
+      "action": "Added Payment: ₹4000 for Shankar on 2025-05-01",
+      "date": "1 Jul 2025, 11:43 am"
+    },
+    {
+      "action": "Added Payment: ₹250 for SMC Dustbin on 2025-05-01",
+      "date": "1 Jul 2025, 11:43 am"
+    },
+    {
+      "action": "Added Payment: ₹150 for Phenyle on 2025-05-01",
+      "date": "1 Jul 2025, 11:44 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Raj Kishor Prasad on 2025-05-01",
+      "date": "1 Jul 2025, 11:44 am"
+    },
+    {
+      "action": "Added Receipt: ₹3000 for Limbu Da on 2025-05-01",
+      "date": "1 Jul 2025, 11:44 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Sharmistha Paul on 2025-05-01",
+      "date": "1 Jul 2025, 11:45 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Pappu Da on 2025-05-01",
+      "date": "1 Jul 2025, 11:45 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Manish Paul on 2025-05-01",
+      "date": "1 Jul 2025, 11:45 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Bittu Singh on 2025-05-01",
+      "date": "1 Jul 2025, 11:46 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Pradosh Rai on 2025-05-01",
+      "date": "1 Jul 2025, 11:46 am"
+    },
+    {
+      "action": "Added Receipt: ₹800 for Bijay Prasad on 2025-05-01",
+      "date": "1 Jul 2025, 11:47 am"
+    },
+    {
+      "action": "Added Payment: ₹400 for SMC Dustbin on 2025-06-01",
+      "date": "1 Jul 2025, 11:47 am"
+    },
+    {
+      "action": "Added Payment: ₹4000 for Shankar on 2025-06-01",
+      "date": "1 Jul 2025, 11:47 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Raj Kishor Prasad on 2025-06-01",
+      "date": "1 Jul 2025, 11:48 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Limbu Da on 2025-06-01",
+      "date": "1 Jul 2025, 11:48 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Pappu Da on 2025-06-01",
+      "date": "1 Jul 2025, 11:48 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Sharmistha Paul on 2025-06-01",
+      "date": "1 Jul 2025, 11:49 am"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Manish Paul on 2025-06-11",
+      "date": "1 Jul 2025, 11:49 am"
+    },
+    {
+      "action": "Added Receipt: ₹2000 for Sanjib Roy on 2025-06-17",
+      "date": "1 Jul 2025, 11:49 am"
+    },
+    {
+      "action": "Added Receipt: ₹800 for Bijay Prasad on 2025-06-27",
+      "date": "1 Jul 2025, 11:49 am"
+    },
+    {
+      "action": "Deleted entry from April",
+      "date": "1 Jul 2025, 11:51 am"
+    },
+    {
+      "action": "Added Payment: ₹8500 for Lift Payment on 2025-04-01",
+      "date": "1 Jul 2025, 11:51 am"
+    },
+    {
+      "action": "Added Payment: ₹260 for Pipe on 2025-04-01",
+      "date": "1 Jul 2025, 11:52 am"
+    },
+    {
+      "action": "Deleted entry from January",
+      "date": "1 Jul 2025, 11:56 am"
+    },
+    {
+      "action": "Added Receipt: ₹2200 for Transfer from previous month on 2025-01-01",
+      "date": "1 Jul 2025, 12:01 pm"
+    }
+  ]
+}
