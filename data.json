@@ -236,12 +236,6 @@
     },
     {
       "type": "Receipt",
-      "name": "Manish Paul",
-      "amount": 500,
-      "date": "2025-04-01"
-    },
-    {
-      "type": "Receipt",
       "name": "Pradosh Rai",
       "amount": 1000,
       "date": "2025-04-01"
@@ -296,8 +290,14 @@
     },
     {
       "type": "Receipt",
+      "name": "Manish Paul",
+      "amount": 1000,
+      "date": "2025-04-01"
+    },
+    {
+      "type": "Receipt",
       "name": "Transfer from previous month",
-      "amount": 2810,
+      "amount": 3310,
       "date": "2024-05-01"
     },
     {
@@ -369,7 +369,7 @@
     {
       "type": "Receipt",
       "name": "Transfer from previous month",
-      "amount": 8210,
+      "amount": 8710,
       "date": "2024-06-01"
     },
     {
@@ -429,37 +429,37 @@
     {
       "type": "Receipt",
       "name": "Transfer from previous month",
-      "amount": 11610,
+      "amount": 12110,
       "date": "2024-07-01"
     },
     {
       "type": "Receipt",
       "name": "Transfer from previous month",
-      "amount": 11610,
+      "amount": 12110,
       "date": "2024-08-01"
     },
     {
       "type": "Receipt",
       "name": "Transfer from previous month",
-      "amount": 11610,
+      "amount": 12110,
       "date": "2024-09-01"
     },
     {
       "type": "Receipt",
       "name": "Transfer from previous month",
-      "amount": 11610,
+      "amount": 12110,
       "date": "2024-10-01"
     },
     {
       "type": "Receipt",
       "name": "Transfer from previous month",
-      "amount": 11610,
+      "amount": 12110,
       "date": "2024-11-01"
     },
     {
       "type": "Receipt",
       "name": "Transfer from previous month",
-      "amount": 11610,
+      "amount": 12110,
       "date": "2024-12-01"
     }
   ],
@@ -775,6 +775,14 @@
     {
       "action": "Added Receipt: ₹2200 for Transfer from previous month on 2025-01-01",
       "date": "1 Jul 2025, 12:01 pm"
+    },
+    {
+      "action": "Deleted entry from April",
+      "date": "1 Jul 2025, 7:41 pm"
+    },
+    {
+      "action": "Added Receipt: ₹1000 for Manish Paul on 2025-04-01",
+      "date": "1 Jul 2025, 7:41 pm"
     }
   ]
 }
