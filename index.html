@@ -42,6 +42,12 @@
   <button onclick="exportToPDF()">Export as PDF</button>
   <button onclick="exportToJSON()">Export to JSON</button>
 
+  <!-- 📥 Import JSON -->
+  <label style="margin-left:10px;">
+    📥 Import JSON:
+    <input type="file" id="jsonInput" accept=".json" onchange="handleFileImport(event)" />
+  </label>
+
   <div class="form-inline">
     <select id="entryType">
       <option value="Receipt">Receipt (Dr)</option>
@@ -215,16 +221,10 @@
     months.forEach((month, index) => {
       const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
       const data = entries.map(e => [e.date, e.type, e.name, '₹' + e.amount]);
-
       if (index !== 0) doc.addPage();
       doc.setFontSize(14);
       doc.text(`${month}`, 14, 20);
-
-      doc.autoTable({
-        startY: 30,
-        head: [["Date", "Type", "Name", "Amount"]],
-        body: data
-      });
+      doc.autoTable({ startY: 30, head: [["Date", "Type", "Name", "Amount"]], body: data });
     });
     doc.save("FlatAccounts.pdf");
   }
@@ -235,7 +235,6 @@
       const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
       allEntries.push(...entries);
     });
-
     const auditTrail = JSON.parse(localStorage.getItem("auditTrail") || "[]");
     const json = JSON.stringify({ entries: allEntries, auditTrail }, null, 2);
     const blob = new Blob([json], { type: "application/json" });
@@ -243,6 +242,36 @@
     link.href = URL.createObjectURL(blob);
     link.download = "data.json";
     link.click();
+  }
+
+  function handleFileImport(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (!data.entries || !data.auditTrail) {
+          alert("Invalid JSON format.");
+          return;
+        }
+        // Clear existing
+        months.forEach(month => localStorage.removeItem(`entries-${month}`));
+        data.entries.forEach(entry => {
+          const monthName = getMonthFromDate(entry.date);
+          const existing = JSON.parse(localStorage.getItem(`entries-${monthName}`) || '[]');
+          existing.push(entry);
+          localStorage.setItem(`entries-${monthName}`, JSON.stringify(existing));
+        });
+        localStorage.setItem("auditTrail", JSON.stringify(data.auditTrail));
+        loadAllEntries();
+        renderAuditTrail();
+        alert("Data imported successfully!");
+      } catch (err) {
+        alert("Error reading JSON file.");
+      }
+    };
+    reader.readAsText(file);
   }
 
   function addToAuditTrail(action) {
@@ -259,14 +288,11 @@
   function renderAuditTrail() {
     const logs = JSON.parse(localStorage.getItem("auditTrail") || "[]");
     const container = document.getElementById("audit-trail");
-    if (!container) return;
-
     container.innerHTML = "<h2>Audit Trail</h2>";
     if (logs.length === 0) {
       container.innerHTML += "<p>No actions recorded yet.</p>";
       return;
     }
-
     const list = document.createElement("ul");
     logs.slice().reverse().forEach(log => {
       const item = document.createElement("li");
@@ -280,14 +306,12 @@
     const encoder = new TextEncoder();
     const data = encoder.encode(input);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    return Array.from(new Uint8Array(hashBuffer))
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join('');
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
   async function checkPassword() {
     const input = document.getElementById("passwordInput").value;
-    const storedHash = "0f58bd1cf4fe036b082624d4b0d657fe84fa42693069a51294c532152ae69fda"; // hash for 2-6uEnj4v73?
+    const storedHash = "0f58bd1cf4fe036b082624d4b0d657fe84fa42693069a51294c532152ae69fda"; // Akansha1234
     const inputHash = await hashPassword(input);
     if (inputHash === storedHash) {
       document.getElementById("login-container").style.display = "none";
