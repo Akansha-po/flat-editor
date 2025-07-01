@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flat Accounts Editor</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
   <style>
-    body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f7f7f7; color: #333; padding: 20px; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f7f7f7; color: #333; padding: 20px; margin: 0; }
     h1 { text-align: center; font-size: 28px; margin-bottom: 20px; }
     .month-section { background: white; margin: 20px auto; padding: 20px; border-radius: 10px; max-width: 900px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
     h2 { border-bottom: 1px solid #ddd; padding-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
@@ -19,7 +19,6 @@
     .delete-button { background-color: #d33; }
     .undo-button { background-color: #4caf50; }
     .form-inline { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-    .ledger-table th[colspan] { text-align: center; background: #f0f0f0; }
     #audit-trail { max-width: 900px; margin: 40px auto; padding: 20px; border: 1px solid #ccc; background: #fff; }
     #audit-trail ul { padding-left: 20px; }
     #audit-trail li { margin-bottom: 6px; }
@@ -41,11 +40,9 @@
   <button class="undo-button" onclick="undoLastAction()">Undo</button>
   <button onclick="exportToPDF()">Export as PDF</button>
   <button onclick="exportToJSON()">Export to JSON</button>
-
-  <!-- 📥 Import JSON -->
   <label style="margin-left:10px;">
     📥 Import JSON:
-    <input type="file" id="jsonInput" accept=".json" onchange="handleFileImport(event)" />
+    <input type="file" accept=".json" onchange="importFromJSON(event)" />
   </label>
 
   <div class="form-inline">
@@ -81,7 +78,7 @@
     section.className = 'month-section';
     section.innerHTML = `
       <h2>${month} <button class="delete-button" onclick="clearMonthData('${month}')">🗑 Clear Month</button></h2>
-      <table class="ledger-table">
+      <table>
         <thead>
           <tr>
             <th colspan="4">Receipts (Dr)</th>
@@ -93,8 +90,7 @@
           </tr>
         </thead>
         <tbody id="table-${month}"></tbody>
-      </table>
-    `;
+      </table>`;
     document.getElementById('months-container').appendChild(section);
   }
 
@@ -106,20 +102,16 @@
       const totalReceipts = entries.filter(e => e.type === 'Receipt').reduce((sum, e) => sum + Number(e.amount), 0);
       const totalPayments = entries.filter(e => e.type === 'Payment').reduce((sum, e) => sum + Number(e.amount), 0);
       const difference = totalReceipts - totalPayments;
-
-      const nextEntries = JSON.parse(localStorage.getItem(`entries-${nextMonth}`) || '[]');
-      const updatedEntries = nextEntries.filter(e => e.name !== 'Transfer from previous month');
-
+      const nextEntries = JSON.parse(localStorage.getItem(`entries-${nextMonth}`) || '[]').filter(e => e.name !== 'Transfer from previous month');
       if (difference !== 0) {
-        updatedEntries.unshift({
+        nextEntries.unshift({
           type: difference > 0 ? 'Receipt' : 'Payment',
           name: 'Transfer from previous month',
           amount: Math.abs(difference),
           date: `2024-${(i + 2).toString().padStart(2, '0')}-01`
         });
       }
-
-      localStorage.setItem(`entries-${nextMonth}`, JSON.stringify(updatedEntries));
+      localStorage.setItem(`entries-${nextMonth}`, JSON.stringify(nextEntries));
     }
   }
 
@@ -130,27 +122,15 @@
       createMonthSection(month);
       const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
       const tbody = document.getElementById(`table-${month}`);
-
       const receipts = entries.filter(e => e.type === 'Receipt');
       const payments = entries.filter(e => e.type === 'Payment');
       const maxRows = Math.max(receipts.length, payments.length);
-
       for (let i = 0; i < maxRows; i++) {
-        const r = receipts[i];
-        const p = payments[i];
+        const r = receipts[i], p = payments[i];
         const row = document.createElement('tr');
-
         row.innerHTML = `
-          <td>${r ? r.date : ''}</td>
-          <td>${r ? r.name : ''}</td>
-          <td>${r ? '₹' + r.amount : ''}</td>
-          <td>${r ? `<button onclick="deleteEntry('${month}', ${entries.indexOf(r)})">Delete</button>` : ''}</td>
-
-          <td>${p ? p.date : ''}</td>
-          <td>${p ? p.name : ''}</td>
-          <td>${p ? '₹' + p.amount : ''}</td>
-          <td>${p ? `<button onclick="deleteEntry('${month}', ${entries.indexOf(p)})">Delete</button>` : ''}</td>
-        `;
+          <td>${r?.date || ''}</td><td>${r?.name || ''}</td><td>${r ? '₹' + r.amount : ''}</td><td>${r ? `<button onclick="deleteEntry('${month}', ${entries.indexOf(r)})">Delete</button>` : ''}</td>
+          <td>${p?.date || ''}</td><td>${p?.name || ''}</td><td>${p ? '₹' + p.amount : ''}</td><td>${p ? `<button onclick="deleteEntry('${month}', ${entries.indexOf(p)})">Delete</button>` : ''}</td>`;
         tbody.appendChild(row);
       }
     });
@@ -161,24 +141,21 @@
     const name = document.getElementById('entryName').value.trim();
     const amount = parseFloat(document.getElementById('entryAmount').value);
     const date = document.getElementById('entryDate').value;
-
-    if (!name || isNaN(amount) || !date) return alert("Please enter valid name, amount, and date.");
-
-    const monthName = getMonthFromDate(date);
+    if (!name || isNaN(amount) || !date) return alert("Please enter valid details.");
+    const month = getMonthFromDate(date);
     const entry = { type, name, amount, date };
-    const existing = JSON.parse(localStorage.getItem(`entries-${monthName}`) || '[]');
+    const existing = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
     existing.push(entry);
-    localStorage.setItem(`entries-${monthName}`, JSON.stringify(existing));
+    localStorage.setItem(`entries-${month}`, JSON.stringify(existing));
     addToAuditTrail(`Added ${type}: ₹${amount} for ${name} on ${date}`);
     loadAllEntries();
-
     document.getElementById('entryName').value = '';
     document.getElementById('entryAmount').value = '';
     document.getElementById('entryDate').value = '';
   }
 
   function deleteEntry(month, index) {
-    if (!confirm(`Delete this entry from ${month}?`)) return;
+    if (!confirm("Delete this entry?")) return;
     const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
     undoStack.push({ month, entries: [...entries] });
     entries.splice(index, 1);
@@ -188,22 +165,22 @@
   }
 
   function clearMonthData(month) {
-    if (!confirm(`Delete all data from ${month}?`)) return;
+    if (!confirm(`Clear all data from ${month}?`)) return;
     const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
     undoStack.push({ month, entries });
     localStorage.removeItem(`entries-${month}`);
-    addToAuditTrail(`Cleared all data from ${month}`);
+    addToAuditTrail(`Cleared data from ${month}`);
     loadAllEntries();
   }
 
   function clearAllData() {
-    if (!confirm("Delete ALL data?")) return;
+    if (!confirm("Clear ALL data?")) return;
     months.forEach(month => {
       const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
       undoStack.push({ month, entries });
       localStorage.removeItem(`entries-${month}`);
     });
-    addToAuditTrail("Cleared ALL monthly data");
+    addToAuditTrail("Cleared ALL data");
     loadAllEntries();
   }
 
@@ -211,7 +188,7 @@
     const last = undoStack.pop();
     if (!last) return alert("Nothing to undo.");
     localStorage.setItem(`entries-${last.month}`, JSON.stringify(last.entries));
-    addToAuditTrail(`Undid last action in ${last.month}`);
+    addToAuditTrail(`Undo last action in ${last.month}`);
     loadAllEntries();
   }
 
@@ -230,11 +207,7 @@
   }
 
   function exportToJSON() {
-    const allEntries = [];
-    months.forEach(month => {
-      const entries = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
-      allEntries.push(...entries);
-    });
+    const allEntries = months.flatMap(month => JSON.parse(localStorage.getItem(`entries-${month}`) || '[]'));
     const auditTrail = JSON.parse(localStorage.getItem("auditTrail") || "[]");
     const json = JSON.stringify({ entries: allEntries, auditTrail }, null, 2);
     const blob = new Blob([json], { type: "application/json" });
@@ -244,31 +217,28 @@
     link.click();
   }
 
-  function handleFileImport(event) {
+  function importFromJSON(event) {
     const file = event.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       try {
         const data = JSON.parse(e.target.result);
-        if (!data.entries || !data.auditTrail) {
-          alert("Invalid JSON format.");
-          return;
-        }
-        // Clear existing
+        if (!data.entries || !data.auditTrail) throw new Error();
+        // Clear all current data
         months.forEach(month => localStorage.removeItem(`entries-${month}`));
         data.entries.forEach(entry => {
-          const monthName = getMonthFromDate(entry.date);
-          const existing = JSON.parse(localStorage.getItem(`entries-${monthName}`) || '[]');
+          const month = getMonthFromDate(entry.date);
+          const existing = JSON.parse(localStorage.getItem(`entries-${month}`) || '[]');
           existing.push(entry);
-          localStorage.setItem(`entries-${monthName}`, JSON.stringify(existing));
+          localStorage.setItem(`entries-${month}`, JSON.stringify(existing));
         });
         localStorage.setItem("auditTrail", JSON.stringify(data.auditTrail));
         loadAllEntries();
         renderAuditTrail();
-        alert("Data imported successfully!");
-      } catch (err) {
-        alert("Error reading JSON file.");
+        alert("Data imported successfully.");
+      } catch {
+        alert("Invalid JSON file.");
       }
     };
     reader.readAsText(file);
@@ -289,10 +259,6 @@
     const logs = JSON.parse(localStorage.getItem("auditTrail") || "[]");
     const container = document.getElementById("audit-trail");
     container.innerHTML = "<h2>Audit Trail</h2>";
-    if (logs.length === 0) {
-      container.innerHTML += "<p>No actions recorded yet.</p>";
-      return;
-    }
     const list = document.createElement("ul");
     logs.slice().reverse().forEach(log => {
       const item = document.createElement("li");
@@ -319,7 +285,7 @@
       loadAllEntries();
       renderAuditTrail();
     } else {
-      document.getElementById("login-error").textContent = "Incorrect password. Please try again.";
+      document.getElementById("login-error").textContent = "Incorrect password.";
     }
   }
 </script>
